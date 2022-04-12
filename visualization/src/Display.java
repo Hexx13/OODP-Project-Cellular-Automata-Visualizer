@@ -12,13 +12,13 @@ public class Display extends JFrame {
     public Display() throws IOException, InterruptedException {
         super("Display Application");
         //declares a 2d array from the text file in the display from the retsus function
-        char[][] newArray = retsus();
+        char[][] newArray = getCellData();
 
         //border declaration
         Border blackline = BorderFactory.createLineBorder(Color.black);
 
         //declares the number of rows by dividing the generations by the square root
-        int rows = retRows();
+        int rows = getGenerations();
         //returns the number of healthy people per iteration
         healthyCount(newArray);
         // infectedCount(newArray);
@@ -41,7 +41,7 @@ public class Display extends JFrame {
                 if(newArray[i][j] == 'A'){
                     panelarray[j].setBackground(Color.green);
                 }//sus count
-                else if(newArray[i][j] == 'B' ||retsus()[i][j] == 'D'){
+                else if(newArray[i][j] == 'B' || getCellData()[i][j] == 'D'){
                     panelarray[j].setBackground(Color.black);
                 }//dead count
                 else if(newArray[i][j] == 'C'){
@@ -74,7 +74,7 @@ public class Display extends JFrame {
 
 
 
-    public int retRows() throws IOException {
+    public int getGenerations() throws IOException {
 
         File file = new File("text.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -82,18 +82,19 @@ public class Display extends JFrame {
         String st = br.readLine();
 
         //the string is then split at every comma and added to the array
-        String[] generations = st.split(",");
+        String[] generationsString = st.split(",");
 
-        // rowcol is the amount of generations in the array
-        int rowcol = (int)Math.sqrt(generations[0].length());
+        // rowCol is the amount of generations in the array
+        int generations = (int)Math.sqrt(generationsString[0].length());
 
-        return rowcol;
+        return generations;
     }
 
-    public char[][] retsus() throws IOException {
+    public char[][] getCellData() throws IOException {
 
         File file = new File("text.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
+
         //reads in data from the file adding it to st
         String st = br.readLine();
 
@@ -103,46 +104,14 @@ public class Display extends JFrame {
         //the data is split at every comma and is added to the generations array
         generations = st.split(",");
 
-        //declaration of all counter arrays
-        int susArray[]= new int[generations.length];
-        int infectArray[]= new int[generations.length];
-        int deceasedArray[]= new int[generations.length];
-        int recoveredArray[]= new int[generations.length];
-        //declaration of all counters
-        int susCount=0;
-        int infectCount=0;
-        int deceasedCount=0;
-        int recoveredCount=0;
-        //declaring characterArray
+        //declaring characterArray for cell data
         char characterArray[][] = new char[generations.length][generations[0].length()];
 
-
+        //populate array
         for (int i =0; i<generations.length; i++){
             for(int j = 0; j<generations[i].length();j++) {
                 characterArray[i][j] = generations[i].charAt(j);
-                /*if(generations[i].charAt(j) == 'A'){
-                    susCount = susCount+1;
-
-                }//sus count
-                else if(generations[i].charAt(j) == 'B' ||generations[i].charAt(j) == 'D'){
-                    deceasedCount=deceasedCount+1;
-                }//dead count
-                else if(generations[i].charAt(j) == 'C'){
-                    infectCount=infectCount+1;
-                }//infect count
-                else{
-                    recoveredCount=recoveredCount+1;
-                }//immune count*/
             }
-            susArray[i]=susCount;
-            susCount=0;
-            deceasedArray[i]=deceasedCount;
-            deceasedCount=0;
-            infectArray[i]=infectCount;
-            infectCount=0;
-            recoveredArray[i]=recoveredCount;
-            recoveredCount=0;
-
         }
 
 
@@ -223,19 +192,15 @@ public class Display extends JFrame {
 
         for (int i =0; i<newArray.length; i++){
             for(int j = 0; j<newArray[i].length;j++) {
-
                 if(newArray[i][j] != 'B' &&newArray[i][j] != 'D'&& newArray[i][j] != 'A'&& newArray[i][j] != 'C'){
 
                     recoveredCount=recoveredCount+1;
 
                 }//immune count
-
             }
-
             recoveredArray[i]=recoveredCount;
             System.out.println(recoveredCount);
             recoveredCount=0;
-
         }
         return recoveredArray;
     }
