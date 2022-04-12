@@ -5,6 +5,10 @@ import java.io.*;
 
 public class Display extends JFrame {
 
+    public static void main(String[] args) throws IOException, InterruptedException {
+        new Display();
+    }
+
     public Display() throws IOException, InterruptedException {
         super("Display Application");
         //declares a 2d array from the text file in the display from the retsus function
@@ -66,15 +70,7 @@ public class Display extends JFrame {
             contentPane.removeAll();
         }
         //Thread.sleep(10);
-
     }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-
-        new Display();
-
-    }
-
 
 
 
@@ -87,8 +83,6 @@ public class Display extends JFrame {
 
         //the string is then split at every comma and added to the array
         String[] generations = st.split(",");
-
-
 
         // rowcol is the amount of generations in the array
         int rowcol = (int)Math.sqrt(generations[0].length());
@@ -172,7 +166,6 @@ public class Display extends JFrame {
             susArray[i]=susCount;
             System.out.println(susCount);
             susCount=0;
-
         }
         return susArray;
     }
@@ -192,8 +185,6 @@ public class Display extends JFrame {
             infectArray[i]=infectCount;
             System.out.println(infectCount);
             infectCount=0;
-
-
         }
         return infectArray;
     }
@@ -216,7 +207,6 @@ public class Display extends JFrame {
             deceasedArray[i]=deceasedCount;
             System.out.println(deceasedCount);
             deceasedCount=0;
-
 
 
         }
