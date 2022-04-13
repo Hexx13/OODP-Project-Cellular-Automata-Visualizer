@@ -18,18 +18,17 @@ public class Cell extends ClonableCell{
 
     private void Colour(){
         if(cellState == 'A'){
-            this.colour = "green";
+            this.colour = Color.GREEN;
         }
         else if(cellState == 'C'){
-            this.colour = "red";
+            this.colour = Color.RED;
         }
         else if(cellState == 'D'){
-            this.colour = "black";
+            this.colour = Color.BLACK;
         }
         else if(cellState > 70 && cellState <= 89){
-            this.colour = "blue";
+            this.colour = Color.BLUE;
         }
-
     }
 
     public Cell makeClone(){
