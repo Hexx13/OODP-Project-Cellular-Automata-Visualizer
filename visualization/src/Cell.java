@@ -30,6 +30,9 @@ public class Cell extends ClonableCell{
             this.colour = Color.BLUE;
         }
     }
+    public Color getColour() {
+        return colour;
+    }
 
     public Cell makeClone(){
         //Variable where reference is stored;
