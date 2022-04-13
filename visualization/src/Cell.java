@@ -5,7 +5,10 @@ import java.awt.*;
 public class Cell extends ClonableCell{
 
     private char cellState;
-    private String colour;
+
+
+
+    private Color colour;
 
 
     public Cell(char cellState) {
