@@ -33,7 +33,13 @@ public class Cell extends ClonableCell{
     public Color getColour() {
         return colour;
     }
+    public JPanel getPanel(){
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        JPanel cellPanel = new JPanel();
+        cellPanel.setBorder(blackline);
 
+        return cellPanel;
+    }
     public Cell makeClone(){
         //Variable where reference is stored;
         Cell cellObject = null;
