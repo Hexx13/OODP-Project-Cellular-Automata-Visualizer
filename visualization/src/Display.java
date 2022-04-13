@@ -1,26 +1,29 @@
+import IO.CellIO;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 
 public class Display extends JFrame {
-
+    CellIO io = new CellIO();
     public static void main(String[] args) throws IOException, InterruptedException {
         new Display();
     }
 
     public Display() throws IOException, InterruptedException {
         super("Display Application");
-        //declares a 2d array from the text file in the display from the retsus function
-        char[][] newArray = getCellData();
+        //declares a 2d array and sources cell data from txt file using IO class
+        char[][] newArray = io.getCellData();
 
-        //border declaration
-        Border blackline = BorderFactory.createLineBorder(Color.black);
+
 
         //declares the number of rows by dividing the generations by the square root
         int rows = getGenerations();
+
         //returns the number of healthy people per iteration
         healthyCount(newArray);
+        
         // infectedCount(newArray);
         // deceasedCount(newArray);
         // recoveredCount(newArray);
@@ -36,21 +39,8 @@ public class Display extends JFrame {
             for(int j= 0;   j < newArray[0].length; j++){
                 //creates panel and adds border
                 panelarray[j] = new JPanel();
-                panelarray[j].setBorder(blackline);
-                //if statement to determine the color of the panel of each index in the array for that generation
-                if(newArray[i][j] == 'A'){
-                    panelarray[j].setBackground(Color.green);
-                }//sus count
-                else if(newArray[i][j] == 'B' || getCellData()[i][j] == 'D'){
-                    panelarray[j].setBackground(Color.black);
-                }//dead count
-                else if(newArray[i][j] == 'C'){
-                    panelarray[j].setBackground(Color.red);
-                }//infect count
-                else{
-                    panelarray[j].setBackground(Color.blue);
-                }//immune count
-                //these panels are then added to the contentpane
+
+
                 mainpan.add(panelarray[j]);
                 setSize(1000, 1000);
                 setVisible(true);
@@ -90,33 +80,6 @@ public class Display extends JFrame {
         return generations;
     }
 
-    public char[][] getCellData() throws IOException {
-
-        File file = new File("text.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
-
-        //reads in data from the file adding it to st
-        String st = br.readLine();
-
-        String[] generations;
-
-
-        //the data is split at every comma and is added to the generations array
-        generations = st.split(",");
-
-        //declaring characterArray for cell data
-        char characterArray[][] = new char[generations.length][generations[0].length()];
-
-        //populate array
-        for (int i =0; i<generations.length; i++){
-            for(int j = 0; j<generations[i].length();j++) {
-                characterArray[i][j] = generations[i].charAt(j);
-            }
-        }
-
-
-        return characterArray;
-    }
 
     public int[] healthyCount(char[][] newArray){
         //declaration of all counter arrays

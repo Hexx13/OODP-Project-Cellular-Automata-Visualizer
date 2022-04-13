@@ -25,7 +25,7 @@ public class Cell extends ClonableCell{
         else if(cellState == 'C'){
             this.colour = Color.RED;
         }
-        else if(cellState == 'D'){
+        else if(cellState == 'D' || cellState == 'B'){
             this.colour = Color.BLACK;
         }
         else if(cellState > 70 && cellState <= 89){
