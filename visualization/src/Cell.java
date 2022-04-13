@@ -13,6 +13,7 @@ public class Cell extends ClonableCell{
 
     public Cell(char cellState) {
         this.cellState = cellState;
+        Colour();
     }
 
     private void Colour(){
