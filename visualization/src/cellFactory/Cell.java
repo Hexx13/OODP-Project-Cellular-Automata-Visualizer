@@ -1,3 +1,5 @@
+package cellFactory;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -34,9 +36,11 @@ public class Cell extends ClonableCell{
         return colour;
     }
     public JPanel getPanel(){
-        Border blackline = BorderFactory.createLineBorder(Color.black);
         JPanel cellPanel = new JPanel();
-        cellPanel.setBorder(blackline);
+
+        Border blackLine = BorderFactory.createLineBorder(Color.black);
+        cellPanel.setBorder(blackLine);
+        cellPanel.setBackground(getColour());
 
         return cellPanel;
     }
