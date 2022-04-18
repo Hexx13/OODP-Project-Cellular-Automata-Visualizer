@@ -9,11 +9,17 @@ public class Cell extends ClonableCell{
     //Panel used to render as a visualized cell
     private JPanel cellPanel = new JPanel();
     private char cellState;
-
-
-
     private Color colour;
 
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    //used for Hash table identification
+    private String id;
 
     public Cell(char cellState) {
         this.cellState = cellState;
