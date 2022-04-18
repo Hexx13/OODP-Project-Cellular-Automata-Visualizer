@@ -32,7 +32,8 @@ public class CellCache {
         //used for loop to create immune cells
         for(int i = 70; i <= 89; i++){
             Cell immune = new Cell((char) i);
-            cellMap.put(Character.toString(removed.getCellState()), immune);
+            cellMap.put(Character.toString(immune.getCellState()), immune);
         }
+
     }
 }
