@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class Cell extends ClonableCell{
 
+    //Panel used to render as a visualized cell
+    private JPanel cellPanel = new JPanel();
     private char cellState;
 
 
@@ -15,7 +17,12 @@ public class Cell extends ClonableCell{
 
     public Cell(char cellState) {
         this.cellState = cellState;
+        //prepare colour
         Colour();
+        //prepare pannel
+        Border blackLine = BorderFactory.createLineBorder(Color.black);
+        cellPanel.setBorder(blackLine);
+        cellPanel.setBackground(getColour());
     }
 
     private void Colour(){
@@ -36,12 +43,6 @@ public class Cell extends ClonableCell{
         return colour;
     }
     public JPanel getPanel(){
-        JPanel cellPanel = new JPanel();
-
-        Border blackLine = BorderFactory.createLineBorder(Color.black);
-        cellPanel.setBorder(blackLine);
-        cellPanel.setBackground(getColour());
-
         return cellPanel;
     }
     public Cell makeClone(){
@@ -56,6 +57,7 @@ public class Cell extends ClonableCell{
         //returns cloned object or null
         return cellObject;
     }
+
     public void setCellState(char state){
         this.cellState = state;
     }
