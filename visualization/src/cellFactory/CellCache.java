@@ -18,26 +18,21 @@ public class CellCache {
     //Create prototypes and store them in hash map
     public static void loadCache(){
         Cell healthy = new Cell('A');
-        healthy.setId("1");
-        cellMap.put(healthy.getId(), healthy);
+        cellMap.put(Character.toString(healthy.getCellState()), healthy);
 
         Cell infected = new Cell('C');
-        infected.setId("2");
-        cellMap.put(infected.getId(), infected);
+        cellMap.put(Character.toString(infected.getCellState()), infected);
 
         Cell dead = new Cell('D');
-        dead.setId("3");
-        cellMap.put(dead.getId(), dead);
+        cellMap.put(Character.toString(dead.getCellState()), dead);
 
         Cell removed = new Cell('B');
-        removed.setId("4");
-        cellMap.put(removed.getId(), removed);
+        cellMap.put(Character.toString(removed.getCellState()), removed);
 
         //used for loop to create immune cells
         for(int i = 70; i <= 89; i++){
             Cell immune = new Cell((char) i);
-            immune.setId(Integer.toString(i));
-            cellMap.put(removed.getId(), immune);
+            cellMap.put(Character.toString(removed.getCellState()), immune);
         }
     }
 }

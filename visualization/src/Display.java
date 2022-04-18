@@ -10,42 +10,43 @@ public class Display extends JFrame {
     public static void main(String[] args) throws IOException, InterruptedException {
         new Display();
     }
+
     //TODO Add pre-proccessing
     //  loading bar?
     //  Itterator?
+
     public Display() throws IOException, InterruptedException {
         super("Display Application");
         //declares a 2d array and sources cell data from txt file using IO class
-        char[][] newArray = io.getCellData();
-
-
-
-
-
+        char[][] cellDataArr = io.getCellData();
         //gets the size of the automata dimension using the IO class
         int size = io.getSize();
 
+
+
         //returns the number of healthy people per iteration
-        //healthyCount(newArray);
-        // infectedCount(newArray);
-        // deceasedCount(newArray);
-        // recoveredCount(newArray);
+        //healthyCount(cellDataArr);
+        // infectedCount(cellDataArr);
+        // deceasedCount(cellDataArr);
+        // recoveredCount(cellDataArr);
+
         //declaring items for the GUI
         Container contentPane = getContentPane();
-        JPanel[] panelarray = new JPanel[newArray[0].length];
+        JPanel[] panelarray = new JPanel[cellDataArr[0].length];
 
         JLabel genLab = new JLabel("",JLabel.CENTER);
         JPanel mainpan = new JPanel(new GridLayout(size+1, size));
         //this for loop repeats once per generation
-        for (int i = 0; i <newArray.length; i++) {
+        for (int i = 0; i <cellDataArr.length; i++) {
             mainpan.removeAll();
             System.out.println();
             System.out.println("generation");
-            for(int j= 0;   j < newArray[0].length; j++){
+
+            for(int j= 0;   j < cellDataArr[0].length; j++){
                 //creates panel and adds border
                 panelarray[j] = new JPanel();
 
-                System.out.print(newArray[i][j]);
+                System.out.print(cellDataArr[i][j]);
                 mainpan.add(panelarray[j]);
                 setSize(1000, 1000);
                 setVisible(true);
@@ -67,12 +68,6 @@ public class Display extends JFrame {
         }
         //Thread.sleep(10);
     }
-
-
-
-
-
-
     public int[] healthyCount(char[][] newArray){
         //declaration of all counter arrays
         int susArray[]= new int[newArray.length];
