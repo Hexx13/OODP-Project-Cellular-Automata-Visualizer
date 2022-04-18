@@ -4,21 +4,22 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class CellPanel implements Cloneable {
+public class CellPanel extends JPanel implements Cloneable {
 
-    private char cellState;
-    public JPanel cellPanel = new JPanel();
+    //Constructor prepares border and colour
     public CellPanel(char cellState) {
         Border blackLine = BorderFactory.createLineBorder(Color.black);
-        cellPanel.setBorder(blackLine);
-        cellPanel.setBackground(getColor(cellState));
+        setBorder(blackLine);
+        setBackground(getColor(cellState));
 
     }
 
+    //Function for creating a clone
     public CellPanel makeClone() throws CloneNotSupportedException{
         return (CellPanel) super.clone();
     }
 
+    //Determines the cell colour based on its current state
     private Color getColor(char state){
         System.out.println(state);
         if(state == 'A'){
@@ -36,7 +37,8 @@ public class CellPanel implements Cloneable {
         return null;
     }
 
+    //Returns the panel
     public JPanel getCellPanel() {
-        return cellPanel;
+        return this;
     }
 }
