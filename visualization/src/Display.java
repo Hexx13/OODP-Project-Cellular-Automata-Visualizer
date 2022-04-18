@@ -1,158 +1,75 @@
 import IO.CellIO;
+import cellFactory.Cell;
+import cellFactory.CellCache;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.*;
 
 public class Display extends JFrame {
-    CellIO io = new CellIO();
+    private CellIO io = new CellIO();
+
+    //declares a 2d array and sources cell data from txt file using IO class
+    private char[][] cellDataArr = io.getCellData();
+    //gets the size of the automata dimension using the IO class
+    private int size = io.getSize();
+
     public static void main(String[] args) throws IOException, InterruptedException {
         new Display();
     }
 
-    //TODO Add pre-proccessing
-    //  loading bar?
-    //  Itterator?
 
     public Display() throws IOException, InterruptedException {
         super("Display Application");
-        //declares a 2d array and sources cell data from txt file using IO class
-        char[][] cellDataArr = io.getCellData();
-        //gets the size of the automata dimension using the IO class
-        int size = io.getSize();
+        setSize(1000, 1000);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        CellCache.loadCache();
 
 
-
-        //returns the number of healthy people per iteration
-        //healthyCount(cellDataArr);
-        // infectedCount(cellDataArr);
-        // deceasedCount(cellDataArr);
-        // recoveredCount(cellDataArr);
-
-        //declaring items for the GUI
+        //Main content pane
         Container contentPane = getContentPane();
-        JPanel[] panelarray = new JPanel[cellDataArr[0].length];
 
-        JLabel genLab = new JLabel("",JLabel.CENTER);
-        JPanel mainpan = new JPanel(new GridLayout(size+1, size));
+
         //this for loop repeats once per generation
         for (int i = 0; i <cellDataArr.length; i++) {
-            mainpan.removeAll();
-            System.out.println();
-            System.out.println("generation");
-
-            for(int j= 0;   j < cellDataArr[0].length; j++){
-                //creates panel and adds border
-                panelarray[j] = new JPanel();
-
-                System.out.print(cellDataArr[i][j]);
-                mainpan.add(panelarray[j]);
-                setSize(1000, 1000);
-                setVisible(true);
-                setDefaultCloseOperation(EXIT_ON_CLOSE);
-            }
-
-            super.setTitle("This is Generation "+(i+2));
-            contentPane.add(mainpan);
-            contentPane.revalidate();
-            Thread.sleep(10);
-            //the generation count is added here to avoid being looped
-            contentPane.add(genLab);
-            //+1 is added so it matches the generation count
-            genLab.setText("This is Generation "+(i+2));
-            //allows the user to process a generation before it is overwritten
-
-            //removes all content from contentpane
+            //removes the last generation
             contentPane.removeAll();
+            //gets new generation
+            contentPane.add(getGenerationPanel(cellDataArr[i]));
+
+            //Revalidate and repaint to display new generation
+            contentPane.revalidate();
+            contentPane.repaint();
+
+            //Sets the title to the current generation
+            super.setTitle("This is Generation "+(i+1));
+
+            //Determines speed of simulation
+            Thread.sleep(50);
         }
-        //Thread.sleep(10);
-    }
-    public int[] healthyCount(char[][] newArray){
-        //declaration of all counter arrays
-        int susArray[]= new int[newArray.length];
-
-        //declaration of all counters
-        int susCount=0;
-
-        for (int i =0; i<newArray.length; i++){
-            for(int j = 0; j<newArray[i].length;j++) {
-                if(newArray[i][j] == 'A'){
-                    susCount = susCount+1;
-
-                }//sus count
-            }
-            susArray[i]=susCount;
-            System.out.println(susCount);
-            susCount=0;
-        }
-        return susArray;
     }
 
-    public int[] infectedCount(char[][] newArray){
-        //declaration of all counter arrays
-        int infectArray[]= new int[newArray.length];
-        //declaration of all counters
-        int infectCount=0;
-
-        for (int i =0; i<newArray.length; i++){
-            for(int j = 0; j<newArray[i].length;j++) {
-                if(newArray[i][j] == 'C'){
-                    infectCount=infectCount+1;
-                }//infect count
-            }
-            infectArray[i]=infectCount;
-            System.out.println(infectCount);
-            infectCount=0;
+    //Populates a JPanel with processed cells
+    // returns a JPanel Object ready to be displayed
+    private JPanel getGenerationPanel(char array[]){
+        //Create panel to hold cells
+        JPanel generationPanel = new JPanel(new GridLayout(size, size));
+        //Loop to create and add cells to populate the Generation Panel
+        for(int i= 0; i < array.length; i++){
+            //translate character to string to use as hashtable key
+            String cellState = Character.toString(array[i]);
+            //Create cell from prototype in hashmap
+            Cell cell = CellCache.getCell(Character.toString(array[i]));
+            //get panel from cell and assign to Jpanel object
+            JPanel cellPanel = cell.getPanel();
+            //Add Cell Panel to Generation Panel
+            generationPanel.add(cellPanel);
         }
-        return infectArray;
+        //return finished panel
+        return generationPanel;
     }
 
-    public int[] deceasedCount(char[][] newArray){
-        //declaration of all counter arrays
-        int deceasedArray[]= new int[newArray.length];
 
-        //declaration of all counters
-        int deceasedCount=0;
-
-        for (int i =0; i<newArray.length; i++){
-            for(int j = 0; j<newArray[i].length;j++) {
-                if(newArray[i][j] == 'B' ||newArray[i][j] == 'D'){
-                    deceasedCount=deceasedCount+1;
-                }//dead count
-
-            }
-
-            deceasedArray[i]=deceasedCount;
-            System.out.println(deceasedCount);
-            deceasedCount=0;
-
-
-        }
-        return deceasedArray;
-    }
-
-    public int[] recoveredCount(char[][] newArray){
-        //declaration of all counter arrays
-
-        int recoveredArray[]= new int[newArray.length];
-        //declaration of all counters
-
-        int recoveredCount=0;
-
-        for (int i =0; i<newArray.length; i++){
-            for(int j = 0; j<newArray[i].length;j++) {
-                if(newArray[i][j] != 'B' &&newArray[i][j] != 'D'&& newArray[i][j] != 'A'&& newArray[i][j] != 'C'){
-
-                    recoveredCount=recoveredCount+1;
-
-                }//immune count
-            }
-            recoveredArray[i]=recoveredCount;
-            System.out.println(recoveredCount);
-            recoveredCount=0;
-        }
-        return recoveredArray;
-    }
 
 }
