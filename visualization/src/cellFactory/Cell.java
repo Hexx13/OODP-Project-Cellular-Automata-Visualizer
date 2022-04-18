@@ -9,6 +9,7 @@ public class Cell extends ClonableCell{
     //Panel used to render as a visualized cell
     private CellPanel cellPanel;
 
+    //the state of the cell, determines colour
     private char cellState;
 
 
@@ -17,6 +18,7 @@ public class Cell extends ClonableCell{
         return cellPanel.getCellPanel();
     }
 
+    //constructor
     public Cell(char cellState) {
         this.cellState = cellState;
         //prepare colour
