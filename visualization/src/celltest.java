@@ -23,17 +23,26 @@ public class celltest  extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
+        //Load hashmap
         CellCache.loadCache();
+
+        //add first render
         add(render());
 
+        //wait a bit
         Thread.sleep(2000);
+        //clear and repaint
         getContentPane().removeAll();
         revalidate();
         repaint();
 
+        //wait a bit
         Thread.sleep(1000);
-        add(renderHard());
+        
+        //add second render
+        add(renderHardCoded());
+
+        //refresh and repaint
         revalidate();
         repaint();
     }
@@ -46,6 +55,8 @@ public class celltest  extends JFrame {
         return str;
     }
 
+
+    //Testing with io data
     private JPanel renderBig(){
         JPanel mainpan1 = new JPanel(new GridLayout(size, size));
 
@@ -59,9 +70,14 @@ public class celltest  extends JFrame {
         return mainpan1;
     }
 
+    //testing without IO data
     private JPanel render(){
         JPanel mainpan1 = new JPanel(new GridLayout(2, 2));
 
+        //works fine if every cell is in a different state
+        //but breaks if the cells are in the same state
+        //prototype clones are the same object?
+        //cant add twice of the same thing?
         String testaRR[] = {"A", "A", "B", "X"};
         System.out.println(testaRR);
 
@@ -71,8 +87,8 @@ public class celltest  extends JFrame {
         }
         return mainpan1;
     }
-
-    private JPanel renderHard(){
+    //hard coded displaying 400 cells of in the same state
+    private JPanel renderHardCoded(){
         JPanel mainpan1 = new JPanel(new GridLayout(20, 20));
 
         for(int i = 0; i < 400; i++){
