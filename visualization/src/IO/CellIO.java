@@ -7,6 +7,22 @@ import java.io.IOException;
 
 public class CellIO {
 
+    public int getSize() throws IOException {
+
+        File file = new File("text.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        //reads in data from the text file line by line, adding it to the string
+        String st = br.readLine();
+
+        //Each generation string is then split with a coma
+        String[] generationsString = st.split(",");
+
+        // the dimension is square thus to get the width we sqrt
+        int size = (int)Math.sqrt(generationsString[0].length());
+
+        return size;
+    }
+
     public char[][] getCellData() throws IOException {
 
         File file = new File("text.txt");

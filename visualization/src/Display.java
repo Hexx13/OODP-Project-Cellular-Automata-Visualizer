@@ -10,7 +10,9 @@ public class Display extends JFrame {
     public static void main(String[] args) throws IOException, InterruptedException {
         new Display();
     }
-
+    //TODO Add pre-proccessing
+    //  loading bar?
+    //  Itterator?
     public Display() throws IOException, InterruptedException {
         super("Display Application");
         //declares a 2d array and sources cell data from txt file using IO class
@@ -18,34 +20,38 @@ public class Display extends JFrame {
 
 
 
-        //declares the number of rows by dividing the generations by the square root
-        int rows = getGenerations();
+
+
+        //gets the size of the automata dimension using the IO class
+        int size = io.getSize();
 
         //returns the number of healthy people per iteration
-        healthyCount(newArray);
-        
+        //healthyCount(newArray);
         // infectedCount(newArray);
         // deceasedCount(newArray);
         // recoveredCount(newArray);
         //declaring items for the GUI
         Container contentPane = getContentPane();
         JPanel[] panelarray = new JPanel[newArray[0].length];
+
         JLabel genLab = new JLabel("",JLabel.CENTER);
-        JPanel mainpan = new JPanel(new GridLayout(rows+1, rows));
+        JPanel mainpan = new JPanel(new GridLayout(size+1, size));
         //this for loop repeats once per generation
         for (int i = 0; i <newArray.length; i++) {
             mainpan.removeAll();
-
+            System.out.println();
+            System.out.println("generation");
             for(int j= 0;   j < newArray[0].length; j++){
                 //creates panel and adds border
                 panelarray[j] = new JPanel();
 
-
+                System.out.print(newArray[i][j]);
                 mainpan.add(panelarray[j]);
                 setSize(1000, 1000);
                 setVisible(true);
                 setDefaultCloseOperation(EXIT_ON_CLOSE);
             }
+
             super.setTitle("This is Generation "+(i+2));
             contentPane.add(mainpan);
             contentPane.revalidate();
@@ -64,21 +70,7 @@ public class Display extends JFrame {
 
 
 
-    public int getGenerations() throws IOException {
 
-        File file = new File("text.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        //reads in data from the text file line by line, adding it to the string
-        String st = br.readLine();
-
-        //the string is then split at every comma and added to the array
-        String[] generationsString = st.split(",");
-
-        // rowCol is the amount of generations in the array
-        int generations = (int)Math.sqrt(generationsString[0].length());
-
-        return generations;
-    }
 
 
     public int[] healthyCount(char[][] newArray){
