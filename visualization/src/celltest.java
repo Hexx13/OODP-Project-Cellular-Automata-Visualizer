@@ -38,7 +38,7 @@ public class celltest  extends JFrame {
 
         //wait a bit
         Thread.sleep(1000);
-        
+
         //add second render
         add(renderHardCoded());
 
