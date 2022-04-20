@@ -64,7 +64,7 @@ public class Display extends JFrame {
             super.setTitle("This is Generation "+(i+1));
 
             //Determines speed of simulation
-            Thread.sleep(50);
+            Thread.sleep(10);
         }
     }
 
