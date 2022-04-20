@@ -19,7 +19,7 @@ public class Display extends JFrame {
     }
 
 
-    public Display() throws IOException, InterruptedException {
+    public Display() throws InterruptedException, IOException {
         super("Display Application");
         setSize(1000, 1000);
         setVisible(true);
@@ -29,18 +29,36 @@ public class Display extends JFrame {
 
         //Main content pane
         Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
+        JPanel topPanel = new JPanel(new GridLayout(1,1));
+        JPanel centerPanel = new JPanel(new GridLayout(1,1));
+        JPanel botPanel = new JPanel(new GridLayout(1,1));
+
+        JLabel generation = new JLabel("CURRENT GENERATION IVAN DRAGANOVIC", SwingConstants.CENTER);
+        generation.setFont(new Font("SanSerif", Font.BOLD, 20));
+
+        topPanel.add(generation);
+        contentPane.add(topPanel, BorderLayout.PAGE_START);
+        contentPane.add(centerPanel, BorderLayout.CENTER);
+        contentPane.add(botPanel, BorderLayout.LINE_END);
+
+
+        runSimulation(centerPanel);
+    }
+
+    private void runSimulation(Container parent) throws InterruptedException {
 
         //this for loop repeats once per generation
         for (int i = 0; i <cellDataArr.length; i++) {
             //removes the last generation
-            contentPane.removeAll();
+            parent.removeAll();
             //gets new generation
-            contentPane.add(getGenerationPanel(cellDataArr[i]));
+            parent.add(getGenerationPanel(cellDataArr[i]));
 
             //Revalidate and repaint to display new generation
-            contentPane.revalidate();
-            contentPane.repaint();
+            parent.revalidate();
+            parent.repaint();
 
             //Sets the title to the current generation
             super.setTitle("This is Generation "+(i+1));
@@ -49,6 +67,7 @@ public class Display extends JFrame {
             Thread.sleep(50);
         }
     }
+
 
     //Populates a JPanel with processed cells
     // returns a JPanel Object ready to be displayed
@@ -61,7 +80,7 @@ public class Display extends JFrame {
             String cellState = Character.toString(array[i]);
             //Create cell from prototype in hashmap
             Cell cell = CellCache.getCell(Character.toString(array[i]));
-            //get panel from cell and assign to Jpanel object
+            //get panel from cell and assign to JPanel object
             JPanel cellPanel = cell.getPanel();
             //Add Cell Panel to Generation Panel
             generationPanel.add(cellPanel);
