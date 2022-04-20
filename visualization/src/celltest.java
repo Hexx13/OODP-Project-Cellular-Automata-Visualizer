@@ -63,7 +63,6 @@ public class celltest  extends JFrame {
         String[] cellData = charTStr(cellDataArr[1]);
 
         for(int i = 0; i < cellData.length; i++){
-            System.out.print(cellData[i]);
             mainpan1.add(CellCache.getCell(cellData[i]).getPanel());
         }
 
@@ -79,7 +78,7 @@ public class celltest  extends JFrame {
         //prototype clones are the same object?
         //cant add twice of the same thing?
         String testaRR[] = {"A", "A", "B", "X"};
-        System.out.println(testaRR);
+
 
 
         for(int i = 0; i < testaRR.length; i++){
