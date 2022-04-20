@@ -21,7 +21,6 @@ public class CellPanel extends JPanel implements Cloneable {
 
     //Determines the cell colour based on its current state
     private Color getColor(char state){
-        System.out.println(state);
         if(state == 'A'){
             return Color.GREEN;
         }
